@@ -142,6 +142,11 @@ def generate_sparql(question: str, schema_summary: str) -> str:
     query = extract_sparql_from_text(raw)
     return query
 
+def run_sparql(g: Graph, query: str):
+    res = g.query(query)
+    vars_ = [str(v) for v in res.vars]
+    rows = [tuple(str(cell) for cell in r) for r in res]
+    return vars_, rows
 
 
 REPAIR_INSTRUCTIONS = """
